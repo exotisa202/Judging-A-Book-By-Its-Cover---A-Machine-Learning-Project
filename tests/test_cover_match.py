@@ -20,3 +20,13 @@ def test_unreadable_image(tmp_path):
 def test_empty_gallery():
     query, _ = synthetic_images()
     assert rank(query, []) == []
+
+
+def test_visual_report_contains_computed_results():
+    from demo_report import build_report
+    report = build_report()
+    assert 'synthetic-identical' in report
+    assert '1.0000' in report
+    assert 'data:image/png;base64,' in report
+    assert 'Smoke test, not research accuracy' in report
+    assert 'https://' not in report
